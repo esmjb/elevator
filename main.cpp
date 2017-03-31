@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream> 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -19,12 +20,29 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 	while (getline(inputFile, line)) {
-		int startFloor;
+		int currentFloor;
 		int totalFloors = 0;
-		
-		startFloor = stoi(line.substr(0, line.find(':')));
-		
-		cout << startFloor << endl;
+		//vector<pair<int, int>> requests;
+		vector<int> nums;
+
+		for (int i = 0; i < line.length();) {
+			string str = "";
+			while (isdigit(line[i])) {				
+				str += line[i];
+				i++;
+			}
+			if (str.length() > 0) {
+				int num = stoi(str);
+				nums.push_back(num);
+			}
+			else
+				i++;
+		}
+		//currentFloor = stoi(line.substr(0, line.find(':'))); //get starting position of elevator
+		//cout << currentFloor << endl;
+		for (int i = 0; i < nums.size(); i++)
+			cout << nums[i] << " ";
+		cout << endl;
 	}
 	
 
