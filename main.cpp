@@ -1,13 +1,12 @@
 #include <iostream>
+#include <cstdlib>
 #include <fstream> 
 #include <string>
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	string line;
-	int startFloor;
-	int totalFloors = 0;
+	string line;	
 
 	if (argc != 3) {
 		cout << "Elevator usage: elevator <inputFile> <mode>" << endl;
@@ -20,7 +19,12 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 	while (getline(inputFile, line)) {
-		cout << line << endl;
+		int startFloor;
+		int totalFloors = 0;
+		
+		startFloor = stoi(line.substr(0, line.find(':')));
+		
+		cout << startFloor << endl;
 	}
 	
 
