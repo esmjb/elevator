@@ -69,28 +69,7 @@ void modeA(vector<int> &requests, int current) {
 	}
 	cout << "(" << total << ")" << endl;
 }
-/*
-void modeA(vector<int> &requests, int current) {
-	int total = 0;
-	vector<int> stops;
 
-	stops.push_back(current);
-
-	for (int i = 0; i < requests.size(); i += 2) {
-		if (requests[i] != current) {					//is this comparison neccessary???
-			stops.push_back(requests[i]);
-			total += abs(current - requests[i]);			
-		}
-		total += abs(requests[i] - requests[i + 1]);	//add distance of completed request, add request end to stop and update current position
-		stops.push_back(requests[i + 1]);
-		current = requests[i + 1];
-	}
-
-	for (int i = 0; i < stops.size(); i++)
-		cout << stops[i] << " ";
-	cout << "(" << total << ")" << endl;
-}
-*/
 void modeB(vector<int> &requests, int current) {	
 	int total = 0;
 	vector<int> stops;																//to hold sequence fo floors stopped at
