@@ -15,9 +15,9 @@ def main():
 
     with open(inputFile) as fh:
         for line in fh:        
-            delimiters = [':', '-', '\n']
+            delimiters = [':', '-', '\n']   
             for char in delimiters:
-                line = line.replace(char, ',')
+                line = line.replace(char, ',')     
             line = line.split(',')
             line = line[0:-1]               #chop off newline
             line = [int(x) for x in line]
@@ -49,11 +49,11 @@ def modeB(line):
     stops.append(line[0])
     current = line[0]
     
-    q = deque()
+    q = deque()                             #create queue and add all ride requests to it in form of tuples
     for i in range(1, len(line), 2):
         q.append((line[i], line[i + 1]))    
     
-    while len(q) > 0:
+    while len(q) > 0:                       
         temp = []
         ride = q.popleft()
         start, end = ride
@@ -64,9 +64,9 @@ def modeB(line):
                 ride = q.popleft()
                 x, y = ride
                 if x < y:
-                    temp.extend([x, y])                    
+                    temp.extend([x, y])         #going same way so add to temp            
                 else:
-                    q.appendleft(ride)
+                    q.appendleft(ride)          #put back into front of queue
                     break
             temp.sort()
         else:
