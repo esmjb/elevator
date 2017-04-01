@@ -8,6 +8,7 @@
 
 using namespace std;
 
+void parseLine(string &, vector<int> &);
 void modeA(vector<int> &, int);
 void modeB(vector<int> &, int);
 
@@ -28,19 +29,8 @@ int main(int argc, char *argv[]) {
 		int currentFloor;			
 		vector<int> nums;
 
-		for (int i = 0; i < line.length();) {
-			string str = "";
-			while (isdigit(line[i])) {				
-				str += line[i];
-				i++;
-			}
-			if (str.length() > 0) {
-				int num = stoi(str);
-				nums.push_back(num);
-			}
-			else
-				i++;
-		}
+		parseLine(line, nums);				
+
 		currentFloor = nums[0];				//assign starting position to currentFloor then delete from vector
 		nums.erase(nums.begin());			
 		
@@ -52,6 +42,22 @@ int main(int argc, char *argv[]) {
 	}
 
 	return 0;
+}
+
+void parseLine(string &line, vector<int> &nums) {
+	for (int i = 0; i < line.length();) {
+		string str = "";
+		while (isdigit(line[i])) {
+			str += line[i];
+			i++;
+		}
+		if (str.length() > 0) {
+			int num = stoi(str);
+			nums.push_back(num);
+		}
+		else
+			i++;
+	}
 }
 
 void modeA(vector<int> &requests, int current) {
