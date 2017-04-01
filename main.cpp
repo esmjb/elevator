@@ -40,6 +40,11 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
+/*
+*Following function takes a string and vector by reference, parses string by selecting only numeric characters
+*then converts numeric strings to ints and appends to vector.
+*Function returns nothing but modifies vector.
+*/
 void parseLine(string &line, vector<int> &nums) {
 	for (int i = 0; i < line.length();) {
 		string str = "";
@@ -56,6 +61,11 @@ void parseLine(string &line, vector<int> &nums) {
 	}
 }
 
+/*
+*Following function outputs total distance travelled and path of elevator that can only take one passenger at a time and must be done in order
+*based on time requested (first come, first serve)
+*Function returns nothing and modifies nothing.
+*/
 void modeA(vector<int> &requests) {
 	int total = 0;		
 	
@@ -70,9 +80,13 @@ void modeA(vector<int> &requests) {
 	cout << "(" << total << ")" << endl;
 }
 
+/*Following function outputs total distance travelled and path of elevator that can accomodate several passengers at same time
+*as long as they are going the same direction and there are no requests between them from someone going in opposite direction
+*Function returns nothing and modifies nothing
+*/
 void modeB(vector<int> &requests) {	
 	int total = 0;
-	int current = requests[0];						//initialize current to hold value of starting elevator position
+	int current = requests[0];						//initialize current (current floor) to hold value of starting elevator position
 	vector<int> stops;								//to hold floors stopped at in sequential order
 	queue<pair<int, int>> rides;					//to hold each ride request.  first = origin, second = destination
 
