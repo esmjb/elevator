@@ -9,8 +9,8 @@
 using namespace std;
 
 void parseLine(string &, vector<int> &);
-void modeA(vector<int> &, int);
-void modeB(vector<int> &, int);
+void modeA(vector<int> &);
+void modeB(vector<int> &);
 
 int main(int argc, char *argv[]) {	
 	string line;	
@@ -25,20 +25,16 @@ int main(int argc, char *argv[]) {
 		cout << "Error opening file or invalid filename" << endl;
 		exit(1);
 	}
-	while (getline(inputFile, line)) {
-		int currentFloor;			
+	while (getline(inputFile, line)) {					
 		vector<int> nums;
 
-		parseLine(line, nums);				
-
-		currentFloor = nums[0];				//assign starting position to currentFloor then delete from vector
-		nums.erase(nums.begin());			
+		parseLine(line, nums);		
 		
 		string mode = argv[2];
 		if (mode.compare("A") == 0)
-			modeA(nums, currentFloor);
+			modeA(nums);
 		else
-			modeB(nums, currentFloor);
+			modeB(nums);
 	}
 
 	return 0;
@@ -60,11 +56,10 @@ void parseLine(string &line, vector<int> &nums) {
 	}
 }
 
-void modeA(vector<int> &requests, int current) {
-	int total = abs(current - requests[0]);				//initialize total to be distance between start position and first ride origin
-
-	cout << current << " ";
-	for (int i = 0; i < requests.size(); i++) {			//iterate through list, only print when two consecutive values are unique 
+void modeA(vector<int> &requests) {
+	int total = 0;		
+	
+	for (int i = 0; i < requests.size(); i++) {			//iterate through list, only print when element does not equal prior element, add difference between current and prior element to total
 		if(i == 0)
 			cout << requests[i] << " ";	
 		else if(requests[i] != requests[i -1]){
@@ -75,14 +70,15 @@ void modeA(vector<int> &requests, int current) {
 	cout << "(" << total << ")" << endl;
 }
 
-void modeB(vector<int> &requests, int current) {	
+void modeB(vector<int> &requests) {	
 	int total = 0;
+	int current = requests[0];						//initialize current to hold value of starting elevator position
 	vector<int> stops;								//to hold floors stopped at in sequential order
 	queue<pair<int, int>> rides;					//to hold each ride request.  first = origin, second = destination
 
 	stops.push_back(current);						//add starting floor to stops
 
-	for (int i = 0; i < requests.size(); i += 2)						//create queue
+	for (int i = 1; i < requests.size(); i += 2)					//create queue starting from index 1 of vector since index 0 is starting position
 		rides.push(make_pair(requests[i], requests[i + 1]));
 
 	while (!rides.empty()) {		
